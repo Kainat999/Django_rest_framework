@@ -4,6 +4,7 @@
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .serializer import TodoSerializer
 
 
 @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'])
@@ -35,3 +36,22 @@ def home(request):
         'message': 'The rest framework is working but it gives error',
         'method': 'You called invalid method'
     })
+@api_view(['POST'])
+def post_todo(request):
+    try:
+        data = request.data
+        print(data)
+
+        return Response({
+        'status': True,
+        'message': 'successfully created Todo',
+    })    
+
+    except Exception as e:
+        print (e)
+
+    return Response({
+        'status': False,
+        'message': 'something wrong',
+    })    
+
