@@ -42,7 +42,7 @@ def post_todo(request):
         data = request.data
         serializer = TodoSerializer(data = data)
         if serializer.is_valid():
-            print(serializer.data)
+            serializer.save()
             return Response({
                 'status': True,
                 'message': 'successfully created Todo',
