@@ -40,12 +40,26 @@ def home(request):
 def post_todo(request):
     try:
         data = request.data
-        print(data)
-
+        serializer = TodoSerializer(data = data)
+        if serializer.is_valid():
+            print(serializer.data)
+            return Response({
+                'status': True,
+                'message': 'successfully created Todo',
+                'data': serializer.data
+                
+            })
+        
         return Response({
-        'status': True,
-        'message': 'successfully created Todo',
-    })    
+        'status': False,
+        'message': 'somethng wrong',
+        'data': serializer.errors
+    })
+
+        
+
+
+           
 
     except Exception as e:
         print (e)
