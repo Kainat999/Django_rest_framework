@@ -5,6 +5,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import TodoSerializer
+from .serializer import Todo
 
 
 @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'])
@@ -36,6 +37,21 @@ def home(request):
         'message': 'The rest framework is working but it gives error',
         'method': 'You called invalid method'
     })
+
+@api_view(['GET'])
+def get_todo(request):
+    todo_obj = Todo.objects.all()
+    serializer = TodoSerializer(todo_obj, many= True)
+    return Response({
+        'status': True,
+        'message': 'Todo list is fatched',
+        'data': serializer.data
+    })
+
+
+
+
+
 @api_view(['POST'])
 def post_todo(request):
     try:
